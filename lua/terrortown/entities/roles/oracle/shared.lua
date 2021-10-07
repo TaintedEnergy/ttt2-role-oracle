@@ -74,9 +74,7 @@ if SERVER then
 				net.WriteString(target1)
 				net.WriteString(target2)
 				net.WriteString(shown_team)
-				net.Broadcast()
-			else
-				print("Not enough in tmp: " .. tostring(#tmp))
+				net.Send(ply)
 			end
 
 			OracleMessage(ply)
