@@ -2,6 +2,7 @@
 CreateConVar("ttt_oracle_min_message_time", 30, {FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_REPLICATED})
 CreateConVar("ttt_oracle_max_message_time", 60, {FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_REPLICATED})
 CreateConVar("ttt_oracle_display_message_time", 7, {FCVAR_ARCHIVE, FCVAR_NOTIFY, FCVAR_REPLICATED})
+CreateConVar("ttt_oracle_message_chat_window", 1, {FCVAR_ARCHIVE, FCVAR_REPLICATED})
 
 hook.Add("TTTUlxDynamicRCVars", "ttt2_ulx_dynamic_nova_convars", function(tbl)
 	tbl[ROLE_ORACLE] = tbl[ROLE_ORACLE] or {}
@@ -29,5 +30,10 @@ hook.Add("TTTUlxDynamicRCVars", "ttt2_ulx_dynamic_nova_convars", function(tbl)
 		max = 6000,
 		decimal = 0,
 		desc = "ttt_oracle_display_message_time (def. 7)"
+	})
+	table.insert(tbl[ROLE_ORACLE], {
+		cvar = "ttt_oracle_message_chat_window",
+		checkbox = true,
+		desc = "ttt_oracle_message_chat_window (def. 1)"
 	})
 end)

@@ -59,14 +59,14 @@ if SERVER then
 				local index = math.random(1, #tmp) -- pick a random target from list of players
 
 				if target_team_to_show == 0 then -- take first target's team
-					shown_team = GetTeamDisplay(tmp[index]:GetSubRoleData().defaultTeam)
+					shown_team = GetTeamDisplay(tmp[index]:GetTeam())
 				end
 				target1 = tmp[index]:GetName() -- get first target's name
 				table.remove(tmp, index) -- remove first target from list
 
 				index = math.random(1, #tmp) -- pick a random target from list of players (excluding first target)
 				if target_team_to_show == 1 then -- take second target's team
-					shown_team = GetTeamDisplay(tmp[index]:GetSubRoleData().defaultTeam)
+					shown_team = GetTeamDisplay(tmp[index]:GetTeam())
 				end
 				target2 = tmp[index]:GetName() -- get second target's name
 
@@ -81,10 +81,11 @@ if SERVER then
 		end)
 	end
 
-	function GetTeamDisplay(teamName) 
-		print("teamName" .. tostring(teamName))
-		if teamName == "innocents" or teamName == "traitors" then
-			return teamName:gsub("^%l", string.upper)
+	function GetTeamDisplay(playerTeam) 
+		if playerTeam == TEAM_INNOCENT then
+			return "Innocents"
+		elseif playerTeam == TEAM_TRAITOR then
+			return "Traitors"
 		end
 		return "Neutral"
 	end
@@ -112,6 +113,8 @@ if CLIENT then
             color = Color(255, 255, 255, 255)}, 
 			GetConVar("ttt_oracle_display_message_time"):GetInt())
 
-		chat.AddText(Color(255, 255, 255, 255), "Oracle: One or more of " .. msg_target1 .. " & " .. msg_target2 .. " are on the team: ", team_colour, msg_team)
+		if GetConVar("ttt_oracle_message_chat_window"):GetInt() >= 1 then
+			chat.AddText(Color(255, 255, 255, 255), "Oracle: One or more of " .. msg_target1 .. " & " .. msg_target2 .. " are on the team: ", team_colour, msg_team)
+		end
     end)
 end
