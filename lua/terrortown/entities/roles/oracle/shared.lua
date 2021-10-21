@@ -40,6 +40,7 @@ if SERVER then
 		local messageTime = math.random( GetConVar("ttt_oracle_min_message_time"):GetInt(), GetConVar("ttt_oracle_max_message_time"):GetInt() )
 		timer.Create("oracle-message" .. ply:SteamID64(), messageTime, 1, function()
 			if not IsValid(ply) then return end
+			if SpecDM and (ply.IsGhost and ply:IsGhost() or (vics.IsGhost and vics:IsGhost())) then return end
 
 			local target1 = ""
 			local target2 = ""
